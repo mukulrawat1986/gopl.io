@@ -1,0 +1,4 @@
+0.65s   11062 https://golang.org
+0.76s    4154 http://gopl.io
+1.25s    6819 https://godoc.org
+1.25s elapsed 
