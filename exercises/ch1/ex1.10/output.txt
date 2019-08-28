@@ -2,3 +2,7 @@
 0.76s    4154 http://gopl.io
 1.25s    6819 https://godoc.org
 1.25s elapsed 
+1.04s   11062 https://golang.org
+2.72s    4154 http://gopl.io
+5.64s    6819 https://godoc.org
+5.64s elapsed 

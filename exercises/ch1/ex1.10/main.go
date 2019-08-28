@@ -14,7 +14,7 @@ func main() {
 	ch := make(chan string)
 
 	// create a file
-	f, err := os.Create("output.txt")
+	f, err := os.OpenFile("output.txt", os.O_CREATE| os.O_APPEND| os.O_WRONLY, 0666)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "fetchall: error when creating file %v\n", err)
 		os.Exit(1)
