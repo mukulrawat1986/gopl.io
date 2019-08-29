@@ -7,38 +7,38 @@ import (
 	"sync"
 )
 
-type Counter struct {
+type Server struct {
 	mu sync.Mutex
 	count int
 	http.Handler
 }
 
 func main() {
-	c := NewCount()
-	log.Fatal(http.ListenAndServe("localhost:8000", c))
+	s := NewServer()
+	log.Fatal(http.ListenAndServe("localhost:8000", s))
 }
 
-func NewCount() *Counter {
-	c := new(Counter)
+func NewServer() *Server {
+	s := new(Server)
 
 	router := http.NewServeMux()
-	router.HandleFunc("/", c.Echo)
-	router.HandleFunc("/count", c.Count)
-	c.Handler = router
-	return c
+	router.HandleFunc("/", s.Echo)
+	router.HandleFunc("/count", s.Counter)
+	s.Handler = router
+	return s
 }
 
 // Echo echoes the Path component of the requested url
-func (c  *Counter) Echo(w http.ResponseWriter, r *http.Request) {
-	c.mu.Lock()
-	c.count++
-	c.mu.Unlock()
+func (s  *Server) Echo(w http.ResponseWriter, r *http.Request) {
+	s.mu.Lock()
+	s.count++
+	s.mu.Unlock()
 	fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
 }
 
 // count echoes the number of calls so far
-func (c *Counter) Count(w http.ResponseWriter, r *http.Request) {
-	c.mu.Lock()
-	fmt.Fprintf(w, "Count = %d\n", c.count)
-	c.mu.Unlock()
+func (s *Server) Counter(w http.ResponseWriter, r *http.Request) {
+	s.mu.Lock()
+	fmt.Fprintf(w, "Counter = %d\n", s.count)
+	s.mu.Unlock()
 }
